@@ -19,11 +19,11 @@ public class GenerickiEntitet implements Serializable {
 
     @Column(name = "kreirano_dana", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date kreiranoDana;
+    protected Date kreiranoDana;
 
     @Column(name = "izmenjeno_dana")
     @Temporal(TemporalType.DATE)
-    private Date izmenjenoDana;
+    protected Date izmenjenoDana;
 
     public Long getId() {
         return id;

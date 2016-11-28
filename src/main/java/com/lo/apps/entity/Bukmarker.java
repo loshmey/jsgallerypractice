@@ -13,19 +13,19 @@ public class Bukmarker extends GenerickiEntitet {
     @Column(name = "opis")
     private String opis;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bukmarker")
+    @ManyToMany
+    @JoinTable(name = "bukmarker_kategorija", joinColumns = @JoinColumn(name = "bukmarker_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "kategorija_id", referencedColumnName = "id"))
     private List<Kategorija> listaKategorija;
 
-    @OneToOne
-    @JoinColumn(name = "slika_prednja_id")
-    private Slika slikaPrednjeStrane;
-
-    @OneToOne
-    @JoinColumn(name = "slika_zadnja_id")
-    private Slika slikaZadnjeStrane;
+    @OneToMany
+    @JoinTable(name = "bukmarker_slika", joinColumns = @JoinColumn(name = "bukmarker_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "slika_id", referencedColumnName = "id"))
+    private List<Slika> slike;
 
     @Column(name = "omiljen")
     private Boolean omiljen;
+
+    public Bukmarker() {
+    }
 
     public String getOpis() {
         return opis;
@@ -43,23 +43,15 @@ public class Bukmarker extends GenerickiEntitet {
         this.listaKategorija = listaKategorija;
     }
 
-    public Slika getSlikaPrednjeStrane() {
-        return slikaPrednjeStrane;
+    public List<Slika> getSlike() {
+        return slike;
     }
 
-    public void setSlikaPrednjeStrane(Slika slikaPrednjeStrane) {
-        this.slikaPrednjeStrane = slikaPrednjeStrane;
+    public void setSlike(List<Slika> slike) {
+        this.slike = slike;
     }
 
-    public Slika getSlikaZadnjeStrane() {
-        return slikaZadnjeStrane;
-    }
-
-    public void setSlikaZadnjeStrane(Slika slikaZadnjeStrane) {
-        this.slikaZadnjeStrane = slikaZadnjeStrane;
-    }
-
-    public Boolean getOmiljen() {
+    public Boolean isOmiljen() {
         return omiljen;
     }
 

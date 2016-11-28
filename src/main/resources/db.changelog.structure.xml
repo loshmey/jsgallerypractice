@@ -6,5 +6,104 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <changeSet id="dodavanje tabele slika" author="milos.poljak">
+        <createTable tableName="slika">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="naziv" type="NVARCHAR(50)"/>
+            <column name="putanja" type="NVARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="portret" type="BOOLEAN"/>
+            <column name="verzija" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kreirano_dana" type="DATETIME"/>
+            <column name="izmenjeno_dana" type="DATETIME"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="slika"/>
+        </rollback>
+    </changeSet>
 
+    <changeSet id="dodavanje tabele kategorija" author="milos.poljak">
+        <createTable tableName="kategorija">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="naziv" type="NVARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="opis" type="NVARCHAR(255)"/>
+            <column name="roditeljska_kategorija_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_roditelj_kategorija" references="kategorija(id)"/>
+            </column>
+            <column name="verzija" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kreirano_dana" type="DATETIME"/>
+            <column name="izmenjeno_dana" type="DATETIME"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="kategorija"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="dodavanje tabele bukmarker" author="milos.poljak">
+        <createTable tableName="bukmarker">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="opis" type="NVARCHAR(255)"/>
+            <column name="omiljen" type="BOOLEAN"/>
+            <column name="verzija" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kreirano_dana" type="DATETIME"/>
+            <column name="izmenjeno_dana" type="DATETIME"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="bukmarker"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="dodavanje tabele bukmarker_kategorija" author="milos.poljak">
+        <createTable tableName="bukmarker_kategorija">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="bukmarker_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_bukmarker_kategorija" references="bukmarker(id)"/>
+            </column>
+            <column name="kategorija_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_kategorija_bukmarker" references="kategorija(id)"/>
+            </column>
+            <column name="kreirano_dana" type="DATETIME"/>
+            <column name="izmenjeno_dana" type="DATETIME"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="bukmarker_kategorija"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="dodavanje tabele bukmarker_slika" author="milos.poljak">
+        <createTable tableName="bukmarker_slika">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="bukmarker_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_bukmarker_slika" references="bukmarker(id)"/>
+            </column>
+            <column name="slika_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_slika_bukmarker" references="slika(id)"/>
+            </column>
+            <column name="kreirano_dana" type="DATETIME"/>
+            <column name="izmenjeno_dana" type="DATETIME"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="bukmarker_slika"/>
+        </rollback>
+    </changeSet>
+    
 </databaseChangeLog>
