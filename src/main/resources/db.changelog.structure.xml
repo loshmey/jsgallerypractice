@@ -37,7 +37,7 @@
             </column>
             <column name="opis" type="NVARCHAR(255)"/>
             <column name="roditeljska_kategorija_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_roditelj_kategorija" references="kategorija(id)"/>
+                <constraints foreignKeyName="fk_roditelj_kategorija" references="kategorija(id)"/>
             </column>
             <column name="verzija" type="BIGINT">
                 <constraints nullable="false"/>
